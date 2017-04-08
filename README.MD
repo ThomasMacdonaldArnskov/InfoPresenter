@@ -1,10 +1,10 @@
-##InfoPresenter Readme
+<h1>InfoPresenter Readme</h1>
 
-<b>Things to be done:</b>
+<h3><b>Things to be done:</b></h3>
 <ul>
 <li>A lot</li>
 </ul>
-<b>Completed</b>
+<h3><b>Completed</b></h3>
 <ul>
 <li>Login module</li>
 <li>Signup module</li>

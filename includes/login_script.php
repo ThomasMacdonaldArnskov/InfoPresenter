@@ -4,11 +4,10 @@
         $validLogin = login($_POST['username'], $_POST['password']);
 
         if ($validLogin){
-            //header("Location: admin.php");
-            echo 'hi there';
             $_SESSION['loggedin'] = true;
             $_SESSION['username'] = $_POST['username'];
         } else {
+            //Needs to go at some point!
             echo ("<br /><br /><br /><br /><br />Login failed");
         }
 
@@ -52,4 +51,17 @@
 
         mysqli_close($conn);
         return $returnStatement;
+    }
+
+    function runLogin($username,$password) {
+        echo "<br /><br /><br /><br /><br />IS THIS EVEN ReACHED?";
+        $validLogin = login($username, $password);
+
+        if ($validLogin){
+            $_SESSION['loggedin'] = true;
+            $_SESSION['username'] = $username;
+        } else {
+            //Needs to go at some point!
+            echo ("<br /><br /><br /><br /><br />Login failed");
+        }
     }

@@ -13,29 +13,16 @@
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         include('includes/menuMember.php');
     } else {
-        include('includes/menu.php');
+        //include('includes/menu.php');
+        header("Location: index.php");
     }
     ?>
 
 </head>
 <body>
 
-<!-- Index site "intro" splash page -->
-<div class="site-wrapper intro-splash">
-    <div class="intro-splash-caption">
-        <h1 class="intro-splash-headline"><img src="img/infopresenter_tmp_logo.png" class="img-responsive center-block"></h1>
-        <p class="intro-splash-paragraph">A quick and easy way to create inforgraphic material for use in your presentations.
-            <br/> Simply upload your spreadsheet and have something awesome to show off in no time</p>
-    </div>
-    <!-- Spacing for front-splash -->
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/>
-</div>
-
 <!-- Spacing -->
-<br/><br/><br/>
+<br/><br/><br/><br />
 
 <!-- Content containers, 3 small columns in accordance to the bootstrap grid system -->
 <div class="container-fluid bg-3 text-center">

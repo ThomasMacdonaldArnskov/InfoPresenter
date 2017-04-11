@@ -2,7 +2,6 @@
 <nav class="navbar navbar-inverse navbar-fixed-top navbar-custom">
     <div class="container-fluid">
         <div class="navbar-header">
-            <li><a class="navbar-brand hidden-custom-semismall" href="#"><img src="img/logo_tmp.png"></a></li>
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
@@ -11,7 +10,7 @@
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-
+                <li><a class="hidden-custom-semismall menu-header" href="index.php">INFOPRESENTER</a></li>
                 <li><a href="#">Home</a></li>
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Page 1 <span class="caret"></span></a>
@@ -25,7 +24,6 @@
                 <li><a href="#">Page 3</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a class="hidden-custom-semilarge" href="#">InfoPresenter - An online infographic presentation tool</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                 <li><a href="#" data-toggle="modal" data-target="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>

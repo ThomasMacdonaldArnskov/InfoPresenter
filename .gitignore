@@ -2,3 +2,4 @@
 .idea/
 test.csv
 /dbinserttest.php
+/includes/connection.php

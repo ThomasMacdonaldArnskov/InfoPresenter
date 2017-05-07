@@ -46,8 +46,8 @@ if (($handle = fopen($_FILES['file']['tmp_name'], "r")) !== FALSE) {
             echo $data[$c] . " <br />\n";
             insertValues($table, $conn, $row, $data[$c], $c,$username);
             //insertValues($table,$conn,$c,$row, $data[$c]);
-            echo "Row is :'$row'<br /><br />";
-            echo "C is :'$c'<br /><br />";
+            echo "Row is :'$row'<br />";
+            echo "C is :'$c'<br />";
         }
         $row++;
 

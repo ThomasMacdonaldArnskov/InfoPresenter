@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "8d926a9248411a94b110833089938312",
+    "content-hash": "d1f45e368a9b9c2f1e7b7d1b89813f28",
     "packages": [
         {
             "name": "components/jquery",
@@ -47,6 +47,47 @@
             "description": "jQuery JavaScript Library",
             "homepage": "http://jquery.com",
             "time": "2017-03-21T07:01:49+00:00"
+        },
+        {
+            "name": "nnnick/chartjs",
+            "version": "v2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chartjs/Chart.js.git",
+                "reference": "c867d3f728d595eafc017f4d4136128824d1db25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chartjs/Chart.js/zipball/c867d3f728d595eafc017f4d4136128824d1db25",
+                "reference": "c867d3f728d595eafc017f4d4136128824d1db25",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "release/2.0": "v2.0-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "NICK DOWNIE",
+                    "email": "hello@nickdownie.com"
+                }
+            ],
+            "description": "Simple HTML5 charts using the canvas element.",
+            "homepage": "http://www.chartjs.org/",
+            "keywords": [
+                "JS",
+                "chart"
+            ],
+            "time": "2017-02-08T20:25:55+00:00"
         },
         {
             "name": "twbs/bootstrap",

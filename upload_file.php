@@ -171,6 +171,9 @@ if ($num % 4 == 1) {
     </div>
 </div><br />';
 }
+$result->close();
+$conn->close();
+
 ?>
 
 

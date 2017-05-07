@@ -50,7 +50,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input id="username" type="text" class="form-control" name="username"
-                                       placeholder="Username" maxlength="50" required>
+                                       placeholder="Username" maxlength="25" required>
                             </div>
 
                             <div class="input-group">
@@ -91,7 +91,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                                 <input id="username" type="text" class="form-control" name="username"
-                                       placeholder="Username" maxlength="50" required>
+                                       placeholder="Username" maxlength="25" required>
                             </div>
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>

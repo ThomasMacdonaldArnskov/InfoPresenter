@@ -1,6 +1,4 @@
 #Ignore the god damn .idea files
 .idea/
-js/
 test.csv
-/test_site.php
 /dbinserttest.php

@@ -49,6 +49,36 @@ while($row = $result->fetch_assoc()) {
 }
 
 
+echo "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />";
+$presname_db = str_replace(' ', '', $presname);
+$presname_db = $username."_".$presname_db;
+echo $presname_db;
+$content = "SELECT * FROM `$presname_db`";
+$result_db = $conn->query($content);
+//$row = $result_db->fetch_assoc();
+$field_cnt = $result_db->field_count;
+$row_cnt = $result_db->num_rows;
+
+
+echo " is the name and the table has ".$field_cnt." fields .";
+$content_fields = $field_cnt-1;
+echo "However I only need the fields with actual content which is: ".$content_fields. " fields. The last field is just the ID <br />";
+
+$store_array = array();
+while($row = $result_db->fetch_assoc()) {
+    //$store_array[] = $row;
+    print_r($row);
+}
+
+/*
+echo "<br /> HERE IS ROW NUMBER 2 <br />";
+echo $row["2"];
+*/
+/*
+for ($set = array (); $row = $result_db->fetch_assoc(); $set[array_shift($row)] = $row);
+print_r($set);
+*/
+
 ?>
 
 </body>

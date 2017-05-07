@@ -20,3 +20,10 @@
 <li>NAME: usernames, TYPE: varchar(50), ATTRIBUTES: UNIQUE</li>
 <li>NAME: passwords, TYPE: varchar(255)</li>
 </ul>
+
+<p>Create another table called user_presentation_table with the following columns
+<ul>
+<li>NAME: ID, TYPE: int(11), ATTRIBUTES: PRIMARY KEY, AUTO INCREMENT, UNIQUE</li>
+<li>NAME: user, TYPE: VARCHAR(50)</li>
+<li>NAME: description, TYPE: VARCHAR(255)</li>
+</ul>

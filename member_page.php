@@ -51,13 +51,19 @@
     </div>
 </div>
 
+
+<!-- Temporary Spacing --->
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/>
+
 <!-- Bottom spacing --->
 <br/><br/><br/>
 
 <!-- Bottom contact bar -->
-<div class="sitewrapper contact-bottom-bar">
-    <p class="bottom-bar-text">Contact info</p>
-</div>
+<?php
+include ("includes/footer.php");
+?>
 
 
 </body>

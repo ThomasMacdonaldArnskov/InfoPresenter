@@ -11,7 +11,7 @@ if (isset($_POST['register_submit'])) {
         require_once("includes/login_script.php");
         echo "But do we get to here?";
         /*runLogin($_POST['username'], $_POST['password']);*/
-        header("Location: import.php");
+        header("Location: member_page.php");
     } else {
         header("Location: index.php");
     }

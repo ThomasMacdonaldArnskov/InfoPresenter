@@ -26,6 +26,8 @@
         <h1 class="intro-splash-headline"><img src="img/infopresenter_tmp_logo.png" class="img-responsive center-block"></h1>
         <p class="intro-splash-paragraph">A quick and easy way to create inforgraphic material for use in your presentations.
             <br/> Simply upload your spreadsheet and have something awesome to show off in no time</p>
+        <!-- Spacing -->
+        <br/>
     </div>
     <!-- Spacing for front-splash -->
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
@@ -34,8 +36,7 @@
     <br/><br/><br/><br/><br/>
 </div>
 
-<!-- Spacing -->
-<br/><br/><br/>
+
 
 <!-- Content containers, 3 small columns in accordance to the bootstrap grid system -->
 <div class="container-fluid bg-3 text-center">
@@ -46,6 +47,8 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
             <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
             <p>&nbsp;</p>
+            <!-- Bottom spacing --->
+            <br/><br/><br/>
         </div>
         <div class="col-sm-4 col-custom">
             <p>&nbsp;</p>
@@ -53,6 +56,8 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
             <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
             <p>&nbsp;</p>
+            <!-- Bottom spacing --->
+            <br/><br/><br/>
         </div>
         <div class="col-sm-4 col-custom">
             <p>&nbsp;</p>
@@ -60,18 +65,15 @@
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
             <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
             <p>&nbsp;</p>
+            <!-- Bottom spacing --->
+            <br/><br/><br/>
         </div>
     </div>
 </div>
 
-<!-- Bottom spacing --->
-<br/><br/><br/>
-
-<!-- Bottom contact bar -->
-<div class="sitewrapper contact-bottom-bar">
-    <p class="bottom-bar-text">Contact info</p>
-</div>
-
+<?php
+include ("includes/footer.php");
+?>
 
 </body>
 </html>

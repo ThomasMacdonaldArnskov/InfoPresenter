@@ -24,8 +24,10 @@
                 <li><a href="#">Page 3</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#" data-toggle="modal" data-target="#signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#" data-toggle="modal" data-target="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#signup"><span class="glyphicon glyphicon-user"></span>
+                        Sign Up</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#login"><span
+                                class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
         </div>
     </div>
@@ -43,11 +45,27 @@
                 </div>
                 <div class="modal-body">
                     <div class="loginmodal-container">
-                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
-                        <input type="text" placeholder="Enter Username" name="username" maxlength="50" required>
-                        <input type="password" placeholder="Enter Password" name="password" maxlength="50" required>
-                        <button type="submit" class="login-modal-btn" name="login_submit">Login</button>
+
+                        <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="username" type="text" class="form-control" name="username"
+                                       placeholder="Username" maxlength="50" required>
+                            </div>
+
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="password" type="password" class="form-control" name="password"
+                                       placeholder="Password" maxlength="50" required>
+                            </div>
+                            <br />
+                            <button type="submit" class="login-modal-btn" name="login_submit">Login</button>
                         </form>
+
+                        <!--<form method="post" action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <input type="text" placeholder="Enter Username" name="username" maxlength="50" required>
+                            <input type="password" placeholder="Enter Password" name="password" maxlength="50" required>
+                        </form> -->
                         <!--<input type="checkbox" checked="checked" class="login-modal-remember-me-btn"> Remember me -->
                     </div>
                 </div>
@@ -68,12 +86,33 @@
                 </div>
                 <div class="modal-body">
                     <div class="loginmodal-container">
+
                         <form method="post" action="/WebPresenter/register_complete.php">
-                            <input type="text" placeholder="Enter Username" name="username" maxlength="50" required>
-                            <input type="password" placeholder="Enter Password" name="password" maxlength="50" required>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                <input id="username" type="text" class="form-control" name="username"
+                                       placeholder="Username" maxlength="50" required>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                <input id="password" type="password" class="form-control" name="password"
+                                       placeholder="Password" maxlength="50" required>
+                            </div>
+                            <br />
                             <button type="submit" class="login-modal-btn" name="register_submit">Signup</button>
                             <p>*Note that the bla bla bla</p>
+
                         </form>
+
+                        <!-- <form method="post" action="/WebPresenter/register_complete.php">
+                            <input type="text" placeholder="Enter Username" name="username" maxlength="50" required>
+                            <       input type="password" placeholder="Enter Password" name="password" maxlength="50" required>
+                            <button type="submit" class="login-modal-btn" name="register_submit">Signup</button>
+                            <p>*Note that the bla bla bla</p>
+                        </form> -->
+
+
+
                         <!--<input type="checkbox" checked="checked" class="login-modal-remember-me-btn"> Remember me -->
                     </div>
                 </div>

@@ -20,7 +20,7 @@ $presentationName = "Conspiracy Theories";
 //$username = $_SESSION['username'];
 $username = "tlma";
 
-$nonValueFields = 3;
+$nonValueFields = 5;
 
 require_once('includes/connection.php');
 $db_host = getDbHost();
@@ -59,16 +59,15 @@ $result->close();
 <br /><br /><br />
 <div class="container-fluid bg-3 text-center">
     <div class="row">
-        <div class="col-sm-8 text-left"><h6><?php $headline = strtoupper($presentationName);
-                echo $headline ?></h6></div>
-        <div class="col-sm-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8 text-left"><h4><?php echo $description ?></h4></div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 text-center"><h6><?php $headline = strtoupper($presentationName);
+                echo $headline ?></h6>
+            <h4><?php echo $description ?></h4>
+        </div>
+        <div class="col-sm-2"></div>
+
     </div>
 </div>
-<div class="col-custom2"></div>
 <br/><br/>
 <?php
 $num = 0;
@@ -87,41 +86,40 @@ while ($row = $result->fetch_assoc()) {
     <div class="row">
         <div class="col-sm-1"></div>';
         if ($num%3==1){
-        echo'<div class="col-sm-5 text-right col-custom">
+        echo'<div class="col-sm-5 text-left col-custom">
             <h1 class="h1-inv">';
         echo $row["1"];
-        echo '</h1>
-            <P class="subtitle-inv">FILMED IN NEVADA</P><br/>
-    
+            echo '</h1>
+            <P class="subtitle">';
+            echo $row["subheader"];
+            echo '</P><br/>
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
                 <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
             </div>
             <br/>
-            <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
-                nulla vel ultricies amet, ac lectus consequat velit tempor, quam vestibulum vitae. Sit nullam. Veniam
-                justo nunc porttitor magna sed ante, mi nulla orci odio eros id nullam, cras bibendum feugiat. At
-                vestibulum donec massa purus ut augue, mauris sed magna ipsum omnis amet, vestibulum laoreet dolor,
-                aliquam ipsum risus tempus ut eros, fusce purus urna ullamcorper lobortis</p>
+            <p>';
+            echo $row["description"];
+            echo '<br/></p><br />
 
         </div>';
         } else {
-            echo'<div class="col-sm-5 text-right">
+            echo'<div class="col-sm-5 text-left">
             <h1>';
             echo $row["1"];
             echo '</h1>
-            <P class="subtitle">FILMED IN NEVADA</P><br/>
+            <P class="subtitle">';
+            echo $row["subheader"];
+            echo '</P><br/>
     
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
                 <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
             </div>
             <br/>
-            <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
-                nulla vel ultricies amet, ac lectus consequat velit tempor, quam vestibulum vitae. Sit nullam. Veniam
-                justo nunc porttitor magna sed ante, mi nulla orci odio eros id nullam, cras bibendum feugiat. At
-                vestibulum donec massa purus ut augue, mauris sed magna ipsum omnis amet, vestibulum laoreet dolor,
-                aliquam ipsum risus tempus ut eros, fusce purus urna ullamcorper lobortis</p>
+            <p>';
+            echo $row["description"];
+            echo '<br /></p><br/>
 
         </div>';
         }
@@ -133,18 +131,18 @@ while ($row = $result->fetch_assoc()) {
             <h1 class="h1-inv">';
             echo $row["1"];
             echo '</h1>
-            <P class="subtitle-inv">FILMED IN NEVADA</P><br/>
+            <P class="subtitle-inv">';
+            echo $row["subheader"];
+            echo '</br></P><br/>
     
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
                 <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
             </div>
             <br/>
-            <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
-                nulla vel ultricies amet, ac lectus consequat velit tempor, quam vestibulum vitae. Sit nullam. Veniam
-                justo nunc porttitor magna sed ante, mi nulla orci odio eros id nullam, cras bibendum feugiat. At
-                vestibulum donec massa purus ut augue, mauris sed magna ipsum omnis amet, vestibulum laoreet dolor,
-                aliquam ipsum risus tempus ut eros, fusce purus urna ullamcorper lobortis</p>
+            <p>';
+            echo $row["description"];
+            echo '<br /></p><br />
 
         </div>';
         } else {
@@ -152,18 +150,18 @@ while ($row = $result->fetch_assoc()) {
             <h1>';
             echo $row["1"];
             echo '</h1>
-            <P class="subtitle">FILMED IN NEVADA</P><br/>
+            <P class="subtitle">';
+            echo $row["subheader"];
+            echo '<br /></P><br/>
     
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
                 <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
             </div>
             <br/>
-            <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
-                nulla vel ultricies amet, ac lectus consequat velit tempor, quam vestibulum vitae. Sit nullam. Veniam
-                justo nunc porttitor magna sed ante, mi nulla orci odio eros id nullam, cras bibendum feugiat. At
-                vestibulum donec massa purus ut augue, mauris sed magna ipsum omnis amet, vestibulum laoreet dolor,
-                aliquam ipsum risus tempus ut eros, fusce purus urna ullamcorper lobortis</p>
+            <p>';
+            echo $row["description"];
+            echo '<br /></p><br />
 
         </div>';
         }
@@ -179,6 +177,7 @@ while ($row = $result->fetch_assoc()) {
 
 function createGraph($i, $numberOfEntries, $dataArray, $offset, $chartType)
 {
+    $finalOffset = $offset-3;
     $graphColor = array("red", "orange", "yellow", "green", "blue");
     $chartArray = array("bar", "polarArea", "pie", "doughnut", "horizontalBar","line","line");
 
@@ -195,12 +194,12 @@ function createGraph($i, $numberOfEntries, $dataArray, $offset, $chartType)
     echo 'datasets: [';
     if ($chartType == 0 || $chartType == 4) {
         for ($j = 0; $j < $numberOfEntries; $j++) {
-            $dataIndex = $j + $offset - 1;
+            $dataIndex = $j + $finalOffset;
             $dataValue = strval($dataIndex);
             echo multipleDataSetGenerator($j, $dataArray[$dataValue], $graphColor);
         }
     } else {
-        echo singleDataSetGenerator($numberOfEntries, $dataArray, $graphColor, $offset,$chartType);
+        echo singleDataSetGenerator($numberOfEntries, $dataArray, $graphColor, $finalOffset,$chartType);
     }
     echo ']';
     echo '};';
@@ -239,10 +238,10 @@ function singleDataSetGenerator($numberOfEntries, $data, $colorArray, $offset,$c
     $colors = '';
     for ($i = 0; $i < $numberOfEntries; $i++) {
         if ($i == $numberOfEntries - 1) {
-            $dataPoints = $dataPoints . $data[$i + $offset - 1];
+            $dataPoints = $dataPoints . $data[$i + $offset];
             $colors = $colors . "window.chartColors." . $colorArray[$i % 5];
         } else {
-            $dataPoints = $dataPoints . $data[$i + $offset - 1] . ",";
+            $dataPoints = $dataPoints . $data[$i + $offset] . ",";
             $colors = $colors . "window.chartColors." . $colorArray[$i % 5] . ",";
         }
     }

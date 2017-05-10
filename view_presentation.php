@@ -20,7 +20,7 @@ $presentationName = $_POST['pres_name'];
 $username = $_SESSION['username'];
 //$username = "tlma";
 
-$nonValueFields = 3;
+$nonValueFields = 5;
 
 require_once('includes/connection.php');
 $db_host = getDbHost();
@@ -56,20 +56,19 @@ $result->close();
     </style>
 </head>
 <body>
-<div class="col-custom2"><br/><br/><br/></div>
-
+<br /><br /><br />
 <div class="container-fluid bg-3 text-center">
     <div class="row">
-        <div class="col-sm-8 text-left"><h6><?php $headline = strtoupper($presentationName);
-                echo $headline ?></h6></div>
-        <div class="col-sm-4"></div>
-    </div>
-    <div class="row">
-        <div class="col-sm-8 text-left"><h4><?php echo $description ?></h4></div>
-        <div class="col-sm-4"></div>
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8 text-center"><h6><?php $headline = strtoupper($presentationName);
+                echo $headline ?></h6>
+            <h4><?php echo $description ?></h4>
+        </div>
+        <div class="col-sm-2"></div>
+
     </div>
 </div>
-<HR>
+<br/><br/>
 <?php
 $num = 0;
 
@@ -85,45 +84,88 @@ while ($row = $result->fetch_assoc()) {
     if ($num % 2 == 0) {
         echo '<div class="container-fluid bg-3 text-center">
     <div class="row">
-        <div class="col-sm-1"></div>
-        <div class="col-sm-5 text-right">
-            <h1>';
-        echo $row["1"];
-        echo '</h1>
-            <P>FILMED IN NEVADA</P><br/>
+        <div class="col-sm-1"></div>';
+        if ($num%3==1){
+            echo'<div class="col-sm-5 text-left col-custom">
+            <h1 class="h1-inv">';
+            echo $row["1"];
+            echo '</h1>
+            <P class="subtitle">';
+            echo $row["subheader"];
+            echo '</P><br/>
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
                 <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
             </div>
             <br/>
-            <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
-                nulla vel ultricies amet, ac lectus consequat velit tempor, quam vestibulum vitae. Sit nullam. Veniam
-                justo nunc porttitor magna sed ante, mi nulla orci odio eros id nullam, cras bibendum feugiat. At
-                vestibulum donec massa purus ut augue, mauris sed magna ipsum omnis amet, vestibulum laoreet dolor,
-                aliquam ipsum risus tempus ut eros, fusce purus urna ullamcorper lobortis</p>
+            <p>';
+            echo $row["description"];
+            echo '<br/></p><br />
 
         </div>';
+        } else {
+            echo'<div class="col-sm-5 text-left">
+            <h1>';
+            echo $row["1"];
+            echo '</h1>
+            <P class="subtitle">';
+            echo $row["subheader"];
+            echo '</P><br/>
+    
+            <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
+            <div id="container">
+                <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
+            </div>
+            <br/>
+            <p>';
+            echo $row["description"];
+            echo '<br /></p><br/>
+
+        </div>';
+        }
         createGraph($num, $field_cnt, $row, $nonValueFields, $row["charttype"]);
     } else {
 
-        echo '<div class="col-sm-5 text-right">
-            <h1>';
-        echo $row["1"];
-        echo '</h1>
-            <P>FILMED IN NEVADA</P><br/>
+        if ($num%3==1){
+            echo'<div class="col-sm-5 text-right col-custom">
+            <h1 class="h1-inv">';
+            echo $row["1"];
+            echo '</h1>
+            <P class="subtitle-inv">';
+            echo $row["subheader"];
+            echo '</br></P><br/>
+    
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
-                <canvas id="chart' . $num . '"style="height: 300px;"></canvas>
+                <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
             </div>
             <br/>
-            <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
-                nulla vel ultricies amet, ac lectus consequat velit tempor, quam vestibulum vitae. Sit nullam. Veniam
-                justo nunc porttitor magna sed ante, mi nulla orci odio eros id nullam, cras bibendum feugiat. At
-                vestibulum donec massa purus ut augue, mauris sed magna ipsum omnis amet, vestibulum laoreet dolor,
-                aliquam ipsum risus tempus ut eros, fusce purus urna ullamcorper lobortis</p>
+            <p>';
+            echo $row["description"];
+            echo '<br /></p><br />
 
-        </div>
-        <div class="col-sm-1"></div> 
+        </div>';
+        } else {
+            echo'<div class="col-sm-5 text-right">
+            <h1>';
+            echo $row["1"];
+            echo '</h1>
+            <P class="subtitle">';
+            echo $row["subheader"];
+            echo '<br /></P><br/>
+    
+            <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
+            <div id="container">
+                <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
+            </div>
+            <br/>
+            <p>';
+            echo $row["description"];
+            echo '<br /></p><br />
+
+        </div>';
+        }
+        echo'<div class="col-sm-1"></div> 
     </div>
 </div>';
 
@@ -135,8 +177,9 @@ while ($row = $result->fetch_assoc()) {
 
 function createGraph($i, $numberOfEntries, $dataArray, $offset, $chartType)
 {
+    $finalOffset = $offset-3;
     $graphColor = array("red", "orange", "yellow", "green", "blue");
-    $chartArray = array("bar", "polarArea", "pie", "doughnut", "horizontalBar");
+    $chartArray = array("bar", "polarArea", "pie", "doughnut", "horizontalBar","line","line");
 
     echo '<script>';
 
@@ -146,17 +189,17 @@ function createGraph($i, $numberOfEntries, $dataArray, $offset, $chartType)
     if ($chartType == 0 || $chartType == 4) {
         echo 'labels: [""],';
     } else {
-        labelGenerator($numberOfEntries);
+        echo labelGenerator($numberOfEntries);
     }
     echo 'datasets: [';
     if ($chartType == 0 || $chartType == 4) {
         for ($j = 0; $j < $numberOfEntries; $j++) {
-            $dataIndex = $j + $offset - 1;
+            $dataIndex = $j + $finalOffset;
             $dataValue = strval($dataIndex);
             echo multipleDataSetGenerator($j, $dataArray[$dataValue], $graphColor);
         }
     } else {
-        echo singleDataSetGenerator($numberOfEntries, $dataArray, $graphColor, $offset);
+        echo singleDataSetGenerator($numberOfEntries, $dataArray, $graphColor, $finalOffset,$chartType);
     }
     echo ']';
     echo '};';
@@ -167,30 +210,16 @@ function createGraph($i, $numberOfEntries, $dataArray, $offset, $chartType)
     echo 'type: "' . $chartArray[$chartType] . '",';
     echo 'data: barChartData' . $i . ',';
     if ($chartType == 1) {
-        echo 'options: {
-            responsive: true,
-            legend: {
-                display:false
-            },
-            title: {
-                display: false,
-            },
-            scale: {
-                display: false,
-                ticks: {
-                    beginAtZero: true
-                },
-                reverse: false
-            },
-            animation: {
-                animateRotate: true,
-                animateScale: true
-            }
-        }';
+        //Polar area chart types
+        echo 'options:';
+        echo'{responsive: true, maintainAspectRatio: true,legend: {display:false}, title: {display: false,},scale: {display: false,ticks: {beginAtZero: true},reverse: false},animation: {animateRotate: true,animateScale: true}}';
+    } else if ($chartType == 5 || 6) {
+        //Line type charts
+        echo'options: {responsive: true,maintainAspectRatio: true, layout: {padding: {top: 30, bottom: 20, left:20, right: 20}}, legend: {display:false, position: "bottom"},tooltips: { mode: "index",intersect: true,},hover: {mode: "nearest",intersect: true},scales: {xAxes: [{display: false,}],yAxes: [{display: false,}]}}';
     }
-    if ($chartType != 1) {
-        echo 'options: {responsive: true, 
-        maintainAspectRatio: false,scales: {xAxes: [{    display: false}],yAxes: [{display: false}]},legend: {display: false}}';
+    else {
+        //The rest
+        echo 'options: {responsive: true,maintainAspectRatio: true,scales: {xAxes: [{    display: false}],yAxes: [{display: false}]},legend: {display: false}}';
     }
     echo '})</script>';
 }
@@ -202,22 +231,27 @@ function multipleDataSetGenerator($labelNumber, $data, $colorArray)
     return $codeGenerator;
 }
 
-function singleDataSetGenerator($numberOfEntries, $data, $colorArray, $offset)
+function singleDataSetGenerator($numberOfEntries, $data, $colorArray, $offset,$chartType)
 {
 
     $dataPoints = '';
     $colors = '';
     for ($i = 0; $i < $numberOfEntries; $i++) {
         if ($i == $numberOfEntries - 1) {
-            $dataPoints = $dataPoints . $data[$i + $offset - 1];
+            $dataPoints = $dataPoints . $data[$i + $offset];
             $colors = $colors . "window.chartColors." . $colorArray[$i % 5];
         } else {
-            $dataPoints = $dataPoints . $data[$i + $offset - 1] . ",";
+            $dataPoints = $dataPoints . $data[$i + $offset] . ",";
             $colors = $colors . "window.chartColors." . $colorArray[$i % 5] . ",";
         }
     }
 
-    $codeGenerator = '{ label: "' . $numberOfEntries . '", backgroundColor: [' . $colors . '], borderColor: window.chartColors.red, borderWidth: 0, data: [' . $dataPoints . '] },';
+    $codeGenerator = '{ label: "' . $numberOfEntries . '", backgroundColor: [' . $colors . '], borderColor: window.chartColors.red, borderWidth: 0, data: [' . $dataPoints . '], fill: false, pointRadius: 15';
+    if ($chartType == 6) {
+        $codeGenerator = $codeGenerator.",steppedLine: true,}";
+    } else {
+        $codeGenerator = $codeGenerator."},";
+    }
     return $codeGenerator;
 }
 
@@ -236,6 +270,7 @@ function labelGenerator($numberOfLabels)
 $result->close();
 $conn->close();
 ?>
+
 
 
 </body>

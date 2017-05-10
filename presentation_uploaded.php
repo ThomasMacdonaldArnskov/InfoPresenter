@@ -79,7 +79,7 @@ function insertFields($tmp_name, $connection, $datapoints,$user)
 {
     $tmp_name = str_replace(' ', '', $tmp_name);
     $table_name = $user .'_'. $tmp_name;
-    $sql = "ALTER TABLE `$table_name` ADD `$datapoints` VARCHAR(50) NOT NULL;";
+    $sql = "ALTER TABLE `$table_name` ADD `$datapoints` VARCHAR(50) NOT NULL, ADD `description` TEXT NOT NULL, ADD `subheader` VARCHAR(255) NOT NULL;";
     $connection->query($sql);
 }
 

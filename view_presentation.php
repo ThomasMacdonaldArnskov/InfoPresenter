@@ -15,12 +15,12 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     include('includes/menu.php');
 }
 
-$presname = $_POST['pres_name'];
-//$presname = "pres";
+$presentationName = $_POST['pres_name'];
+//$presentationName = "Conspiracy Theories";
 $username = $_SESSION['username'];
 //$username = "tlma";
 
-$non_value_fields = 2;
+$nonValueFields = 3;
 
 require_once('includes/connection.php');
 $db_host = getDbHost();
@@ -33,24 +33,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$presname_db = str_replace(' ', '', $presname);
-$presname_db = $username . "_" . $presname_db;
+$presentationNameDB = str_replace(' ', '', $presentationName);
+$presentationNameDB = $username . "_" . $presentationNameDB;
 
-$rowcounterfetch = "SELECT * FROM `$presname_db`";
-$rowresult = $conn->query($rowcounterfetch);
-$row_cnt = $rowresult->num_rows;
-$rowresult->close();
+$rowCounterFetch = "SELECT * FROM `user_presentations_table` WHERE user = '$username' AND presentation_name = '$presentationName'";
+$result = $conn->query($rowCounterFetch);
+$descriptionFetch = $result->fetch_assoc();
+$description = $descriptionFetch["description"];
 
-$graphcolor = array("backgroundColor: color(window.chartColors.red).alpha(1).rgbString(),", "backgroundColor: color(window.chartColors.orange).alpha(1).rgbString(),", "backgroundColor: color(window.chartColors.yellow).alpha(1).rgbString(),", "backgroundColor: color(window.chartColors.green).alpha(1).rgbString(),");
-$bordercolor = array("borderColor: window.chartColors.red,", "borderColor: window.chartColors.orange,", "borderColor: window.chartColors.yellow,", "borderColor: window.chartColors.green,");
-
-$sql = "SELECT * FROM `$presname_db` WHERE id = '1'";
-$result = $conn->query($sql);
-$row = $result->fetch_assoc();
-$counter_array = array_filter($row, 'strlen');
-
-$field_cnt = count($counter_array);
-$field_cnt = $field_cnt - $non_value_fields;
 $result->close();
 ?>
 
@@ -66,22 +56,31 @@ $result->close();
     </style>
 </head>
 <body>
-<br/><br/><br/><br/><br/>
-<H6 class="text-center">Presentation title</H6>
-<br/><br/><br/>
+<div class="col-custom2"><br/><br/><br/></div>
+
+<div class="container-fluid bg-3 text-center">
+    <div class="row">
+        <div class="col-sm-8 text-left"><h6><?php $headline = strtoupper($presentationName);
+                echo $headline ?></h6></div>
+        <div class="col-sm-4"></div>
+    </div>
+    <div class="row">
+        <div class="col-sm-8 text-left"><h4><?php echo $description ?></h4></div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+<HR>
 <?php
 $num = 0;
 
-for ($i = 0; $i < $row_cnt; $i++) {
-    $idsrc = $i + 1;
-    $sql = "SELECT * FROM `$presname_db` WHERE id = '$idsrc'";
-    $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    $counter_array = array_filter($row, 'strlen');
+$sql = "SELECT * FROM `$presentationNameDB`";
+$result = $conn->query($sql);
 
+while ($row = $result->fetch_assoc()) {
+
+    $counter_array = array_filter($row, 'strlen');
     $field_cnt = count($counter_array);
-    $field_cnt = $field_cnt - $non_value_fields;
-    $result->close();
+    $field_cnt = $field_cnt - $nonValueFields;
 
     if ($num % 2 == 0) {
         echo '<div class="container-fluid bg-3 text-center">
@@ -94,7 +93,7 @@ for ($i = 0; $i < $row_cnt; $i++) {
             <P>FILMED IN NEVADA</P><br/>
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
-                <canvas id="chart' . $i . '"></canvas>
+                <canvas id="chart' . $num . '" style="height: 300px;"></canvas>
             </div>
             <br/>
             <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
@@ -104,9 +103,9 @@ for ($i = 0; $i < $row_cnt; $i++) {
                 aliquam ipsum risus tempus ut eros, fusce purus urna ullamcorper lobortis</p>
 
         </div>';
-    }
+        createGraph($num, $field_cnt, $row, $nonValueFields, $row["charttype"]);
+    } else {
 
-    if ($num % 2 == 1) {
         echo '<div class="col-sm-5 text-right">
             <h1>';
         echo $row["1"];
@@ -114,7 +113,7 @@ for ($i = 0; $i < $row_cnt; $i++) {
             <P>FILMED IN NEVADA</P><br/>
             <span class="glyphicon glyphicon-search" aria-hidden="true" style="font-size:250%;"></span>
             <div id="container">
-                <canvas id="chart' . $i . '"></canvas>
+                <canvas id="chart' . $num . '"style="height: 300px;"></canvas>
             </div>
             <br/>
             <p>Lorem ipsum dolor sit amet, donec volutpat egestas eget egestas sed porttitor, nulla nonummy nec ut,
@@ -128,60 +127,117 @@ for ($i = 0; $i < $row_cnt; $i++) {
     </div>
 </div>';
 
-
-        $num++;
+        createGraph($num, $field_cnt, $row, $nonValueFields, $row["charttype"]);
     }
+
+    $num++;
+}
+
+function createGraph($i, $numberOfEntries, $dataArray, $offset, $chartType)
+{
+    $graphColor = array("red", "orange", "yellow", "green", "blue");
+    $chartArray = array("bar", "polarArea", "pie", "doughnut", "horizontalBar");
 
     echo '<script>';
 
     echo 'var color = Chart.helpers.color;';
+    echo 'var barChartData' . $i . ' = {';
 
-    echo 'var barChartData'.$i.' = {';
-
-    echo 'labels: [""],';
-    echo 'datasets: [{';
-    for ($s = 0; $s < $field_cnt; $s++) {
-        $index = $s + 2;
-        echo 'label: "Row ' . $s . '",';
-        echo $graphcolor[$s % 4];
-        echo 'borderColor: window.chartColors.red,';
-        echo 'borderWidth: 0,';
-        echo 'data: [';
-        echo $row["$index"];
-        echo ']';
-        echo '},';
-
-        if ($s != $field_cnt - 1) {
-            echo '{';
-        }
+    if ($chartType == 0 || $chartType == 4) {
+        echo 'labels: [""],';
+    } else {
+        labelGenerator($numberOfEntries);
     }
-
+    echo 'datasets: [';
+    if ($chartType == 0 || $chartType == 4) {
+        for ($j = 0; $j < $numberOfEntries; $j++) {
+            $dataIndex = $j + $offset - 1;
+            $dataValue = strval($dataIndex);
+            echo multipleDataSetGenerator($j, $dataArray[$dataValue], $graphColor);
+        }
+    } else {
+        echo singleDataSetGenerator($numberOfEntries, $dataArray, $graphColor, $offset);
+    }
     echo ']';
     echo '};';
 
 
-    echo 'var ctx = document.getElementById("chart'.$i.'");';
-    echo 'var chart'.$i.' = new Chart(ctx, {';
-    echo 'type: "bar",';
-    echo 'data: barChartData'.$i.',';
-    echo 'options: {';
-    echo 'scales: {';
-    echo 'xAxes: [{';
-    echo'    display: false';
+    echo 'var ctx = document.getElementById("chart' . $i . '");';
+    echo 'var chart' . $i . ' = new Chart(ctx, {';
+    echo 'type: "' . $chartArray[$chartType] . '",';
+    echo 'data: barChartData' . $i . ',';
+    if ($chartType == 1) {
+        echo 'options: {
+            responsive: true,
+            legend: {
+                display:false
+            },
+            title: {
+                display: false,
+            },
+            scale: {
+                display: false,
+                ticks: {
+                    beginAtZero: true
+                },
+                reverse: false
+            },
+            animation: {
+                animateRotate: true,
+                animateScale: true
+            }
+        }';
+    }
+    if ($chartType != 1) {
+        echo 'options: {responsive: true, 
+        maintainAspectRatio: false,scales: {xAxes: [{    display: false}],yAxes: [{display: false}]},legend: {display: false}}';
+    }
+    echo '})</script>';
+}
 
-    echo '}],';
-    echo 'yAxes: [{';
+function multipleDataSetGenerator($labelNumber, $data, $colorArray)
+{
+    $graphColor = $colorArray;
+    $codeGenerator = '{ label: "' . $labelNumber . '", backgroundColor: color(window.chartColors.' . $graphColor[$labelNumber % 5] . ').alpha(1).rgbString(), borderColor: window.chartColors.red, borderWidth: 0, data: [' . $data . '] },';
+    return $codeGenerator;
+}
 
-    echo 'display: false';
+function singleDataSetGenerator($numberOfEntries, $data, $colorArray, $offset)
+{
 
-    echo '}]';
-    echo '},';
-    echo 'legend: {';
-    echo 'display: false';
-    echo '}';
-    echo '}';
-    echo '})';
-    echo'</script>'; } ?>
+    $dataPoints = '';
+    $colors = '';
+    for ($i = 0; $i < $numberOfEntries; $i++) {
+        if ($i == $numberOfEntries - 1) {
+            $dataPoints = $dataPoints . $data[$i + $offset - 1];
+            $colors = $colors . "window.chartColors." . $colorArray[$i % 5];
+        } else {
+            $dataPoints = $dataPoints . $data[$i + $offset - 1] . ",";
+            $colors = $colors . "window.chartColors." . $colorArray[$i % 5] . ",";
+        }
+    }
+
+    $codeGenerator = '{ label: "' . $numberOfEntries . '", backgroundColor: [' . $colors . '], borderColor: window.chartColors.red, borderWidth: 0, data: [' . $dataPoints . '] },';
+    return $codeGenerator;
+}
+
+function labelGenerator($numberOfLabels)
+{
+    $label = '';
+    for ($i = 0; $i < $numberOfLabels; $i++) {
+        $label .= '"",';
+    }
+    $returnValue = 'labels: [' . $label . '],';
+
+    return $returnValue;
+}
+
+
+$result->close();
+$conn->close();
+?>
+
+
 </body>
 
 </html>

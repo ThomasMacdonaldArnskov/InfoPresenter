@@ -65,6 +65,7 @@ function createTable($tmp_name, $connection,$user, $insertDescription)
     $table_name = $user .'_'. $tmp_name;
     $sql = "CREATE TABLE $table_name (
                 ID int UNIQUE NOT NULL AUTO_INCREMENT,
+                charttype int NOT NULL,
                 PRIMARY KEY (ID)
                 );";
     $connection->query($sql);
@@ -89,6 +90,7 @@ function initDB($tmp_name, $connection, $headlines, $user)
     for ($i = 0; $i < $headlines; $i++) {
         $sql_init = "INSERT INTO `$table_name` (`ID`) VALUES ('')";
         $connection->query($sql_init);
+        $charttypeInit = "INSERT INTO `$table_name` (`charttype`) VALUES ('0')";
     }
 }
 

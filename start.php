@@ -22,7 +22,7 @@ $createUsers = "CREATE TABLE `webpresenter`.`users` ( `id` INT NOT NULL AUTO_INC
 $connection->query($createUsers);
 echo "USER TABLE CREATED<br />";
 
-$createPresentationtable = "CREATE TABLE `webpresenter`.`user_presentations_table` ( `id` INT NOT NULL AUTO_INCREMENT , `user` VARCHAR(255) NOT NULL , `presentation_name` VARCHAR(255) NOT NULL , `description` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
+$createPresentationtable = "CREATE TABLE `webpresenter`.`user_presentations_table` ( `id` INT NOT NULL AUTO_INCREMENT , `user` VARCHAR(255) NOT NULL , `presentation_name` VARCHAR(255) NOT NULL , `description` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;";
 $connection->query($createPresentationtable);
 echo "PRESENTATION OVERVIEW TABLE CREATED";
 

@@ -12,15 +12,15 @@ include('includes/login_script.php');
 if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
     include('includes/menuMember.php');
 } else {
-    include('includes/menu.php');
+    header("Location: index.php");
 }
 
-$presentationName = $_POST['pres_name'];
+$tableID = $_POST['table_id'];
 //$presentationName = "Conspiracy Theories";
 $username = $_SESSION['username'];
 //$username = "tlma";
 
-$nonValueFields = 5;
+$nonValueFields = 6;
 
 require_once('includes/connection.php');
 $db_host = getDbHost();
@@ -33,14 +33,14 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$presentationNameDB = str_replace(' ', '', $presentationName);
-$presentationNameDB = $username . "_" . $presentationNameDB;
+//$presentationNameDB = str_replace(' ', '', $tableID);
+$presentationNameDB = $username . "_" . $tableID;
 
-$rowCounterFetch = "SELECT * FROM `user_presentations_table` WHERE user = '$username' AND presentation_name = '$presentationName'";
+$rowCounterFetch = "SELECT * FROM `user_presentations_table` WHERE ID = '$tableID'";
 $result = $conn->query($rowCounterFetch);
 $descriptionFetch = $result->fetch_assoc();
 $description = $descriptionFetch["description"];
-
+$presentationName = $descriptionFetch["presentation_name"];
 $result->close();
 ?>
 
@@ -72,10 +72,9 @@ $result->close();
 <?php
 $num = 0;
 
-$sql = "SELECT * FROM `$presentationNameDB`";
-$result = $conn->query($sql);
-
-while ($row = $result->fetch_assoc()) {
+$sqlRequest = "SELECT * FROM `$presentationNameDB`";
+$assocArray = $conn->query($sqlRequest);
+while ($row = $assocArray->fetch_assoc()) {
 
     $counter_array = array_filter($row, 'strlen');
     $field_cnt = count($counter_array);
@@ -177,7 +176,7 @@ while ($row = $result->fetch_assoc()) {
 
 function createGraph($i, $numberOfEntries, $dataArray, $offset, $chartType)
 {
-    $finalOffset = $offset-3;
+    $finalOffset = $offset-4;
     $graphColor = array("red", "orange", "yellow", "green", "blue");
     $chartArray = array("bar", "polarArea", "pie", "doughnut", "horizontalBar","line","line");
 
@@ -267,10 +266,12 @@ function labelGenerator($numberOfLabels)
 }
 
 
-$result->close();
+$assocArray->close();
 $conn->close();
 ?>
-
+<br />
+<br />
+<br />
 
 
 </body>

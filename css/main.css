@@ -1,6 +1,7 @@
 body {
     margin: 0;
     padding: 0;
+    background-color: white;
 }
 
 h1 {
@@ -124,7 +125,7 @@ pre {
 .intro-splash-caption {
     width: 100%;
     bottom: 0;
-    margin-bottom: 0;
+    margin-bottom: 40px;
     position: absolute;
     padding: 2% 2%;
     background-color: rgba(0, 0, 0, 0.75);

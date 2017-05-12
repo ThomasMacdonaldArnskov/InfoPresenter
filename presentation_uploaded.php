@@ -13,13 +13,13 @@
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         include('includes/menuMember.php');
     } else {
-        include('includes/menu.php');
+        header("Location: index.php");
     }
 
     $row = 1;
     $col = 1;
     $table = $_POST['name'];
-    $_SESSION['table'] = $_POST['name'];
+    //$_SESSION['table'] = $_POST['name'];
     $description = $_POST['description'];
     $username = $_SESSION['username'];
 
@@ -38,14 +38,15 @@
             while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                 $num = count($data);
                 if ($row == 1) {
-                    initDB($table, $conn, $num, $username,$id);
+                    initDB($table, $conn, $num, $username, $id);
                 }
-                insertFields($table, $conn, $row, $username,$id);
+                insertFields($table, $conn, $row, $username, $id);
                 for ($c = 0; $c < $num; $c++) {
-                    insertValues($table, $conn, $row, $data[$c], $c, $username,$id);
+                    insertValues($table, $conn, $row, $data[$c], $c, $username, $id);
                 }
                 $row++;
-            } insertExtraFields($table,$username,$conn,$id);
+            }
+            insertExtraFields($table, $username, $conn, $id);
         }
         fclose($handle);
         mysqli_close($conn);
@@ -53,7 +54,7 @@
 
     function createTable($tmp_name, $connection, $user, $insertDescription)
     {
-        $returnableID ="";
+        $returnableID = "";
         $unaltered_presentation_name = $tmp_name;
 
         $insertInto = "INSERT INTO `user_presentations_table` (`user`, `presentation_name`, `description`) VALUES ('$user', '$unaltered_presentation_name', '$insertDescription')";
@@ -61,7 +62,7 @@
 
         $selectID = "SELECT ID FROM `user_presentations_table` WHERE user = '$user' AND presentation_name = '$unaltered_presentation_name'";
         $result = $connection->query($selectID);
-        while($row = $result->fetch_assoc()){
+        while ($row = $result->fetch_assoc()) {
             $returnableID = $row["ID"];
         }
 
@@ -78,7 +79,7 @@
         return $returnableID;
     }
 
-    function insertFields($tmp_name, $connection, $datapoints, $user,$id)
+    function insertFields($tmp_name, $connection, $datapoints, $user, $id)
     {
         //$tmp_name = str_replace(' ', '', $tmp_name);
         $table_name = $user . '_' . $id;
@@ -86,9 +87,8 @@
         $connection->query($sql);
     }
 
-    function initDB($tmp_name, $connection, $headlines, $user,$id)
+    function initDB($tmp_name, $connection, $headlines, $user, $id)
     {
-//        $tmp_name = str_replace(' ', '', $tmp_name);
         $table_name = $user . '_' . $id;
         for ($i = 0; $i < $headlines; $i++) {
             $sql_init = "INSERT INTO `$table_name` (`ID`) VALUES ('')";
@@ -98,22 +98,22 @@
         }
     }
 
-    function insertValues($tmp_name, $connection, $currentRow, $data, $field, $user,$id)
+    function insertValues($tmp_name, $connection, $currentRow, $data, $field, $user, $id)
     {
-        //$tmp_name = str_replace(' ', '', $tmp_name);
         $table_name = $user . '_' . $id;
         $field = $field + 1;
         $sql = "UPDATE `$table_name` SET `$currentRow` = '$data', `icon` = '0' WHERE `$table_name`.`ID` = $field";
         $connection->query($sql);
     }
 
-    function insertExtraFields($tmp_name,$user,$connection,$id) {
-        //$tmp_name = str_replace(' ', '', $tmp_name);
+    function insertExtraFields($tmp_name, $user, $connection, $id)
+    {
         $table_name = $user . '_' . $id;
         $alterTableLastly = "ALTER TABLE `$table_name` ADD `charttype` INT NOT NULL AFTER `icon`, ADD `description` TEXT NOT NULL AFTER `charttype`, ADD `subheader` VARCHAR(255) NOT NULL AFTER `description`";
         $connection->query($alterTableLastly);
     }
-?>
+
+    ?>
 
 </head>
 <body>
@@ -122,6 +122,17 @@
 
 <h1 class="text-center">Spreadsheet succesfully uploaded</h1>
 <p class="text-center">Now it is time to review and customize your data</p>
+<br />
+<div class="row">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-2">
+        <form action="edit_presentation.php" method="post">
+            <input type="hidden" name="pres_name" value="<?php echo $table; ?>">
+            <input type="submit" class="btn-block btn btn-success uploadpresentation" name="submit" value="Continue to customization">
+        </form>
+    </div>
+    <div class="col-sm-5"></div>
+</div>
 
 <br/><br/><br/>
 

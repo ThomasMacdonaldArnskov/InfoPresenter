@@ -13,17 +13,17 @@
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
         include('includes/menuMember.php');
     } else {
-        include('includes/menu.php');
+        header("Location: index.php");
     }
 
     $row = 1;
     $col = 1;
-    //$table = $_POST['name'];
+    $table = $_POST['pres_name'];
     //$_SESSION['table'] = $_POST['name'];
     //$table = $_SESSION[$table];
-    $table = "start";
+    //$table = "start";
 
-    $description = $_POST['description'];
+    //$description = $_POST['description'];
     $username = $_SESSION['username'];
 
     $num = 1;
@@ -252,6 +252,19 @@ while ($row = $assocArray->fetch_assoc()) {
     $num++;
 }
 ?>
+
+<div class="row">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-2">
+        <form action="view_presentation.php" method="post">
+            <input type="hidden" name="table_id" value="<?php echo $tableID; ?>">
+            <input type="submit" class="btn-block btn btn-success uploadpresentation" name="submit" value="View your presentation">
+        </form>
+    </div>
+    <div class="col-sm-5"></div>
+</div>
+<br/><br /><br />
+
 
 </body>
 </html>

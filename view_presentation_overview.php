@@ -21,21 +21,11 @@
 <body>
 
 <!-- Spacing -->
-
 <br/><br/><br/><br/><br/><br/>
-<h1 class="text-center">Upload a new Presentation</h1>
-<!-- The upload new presentation button -->
-<br />
-<div class="row">
-    <div class="col-sm-5"></div>
-    <div class="col-sm-2">
-        <button class="btn-block btn btn-success uploadpresentation" data-toggle="modal" data-target="#createNew">+ New presentation +</button>
-    </div>
-    <div class="col-sm-5"></div>
-</div>
 
+<h1 class="text-center">View your presentations</h1>
 <!-- Spacing -->
-<br/>
+<br/><br/><br/>
 
 <!-- Headline -->
 <div class="row">
@@ -45,7 +35,7 @@
     </div>
     <div class="col-sm-8">
         <br/>
-        <h3 class="headline">Previously uploaded presentations</h3>
+        <h3 class="headline">Your presentations</h3>
         <hr>
     </div>
     <div class="col-sm-2">
@@ -55,7 +45,8 @@
 </div>
 
 <!-- Spacing -->
-<br /><br />
+<br/><br/>
+
 <?php
 
 //Connect to the database
@@ -175,35 +166,5 @@ $conn->close();
 include ("includes/footer.php");
 ?>
 
-
-<!-- The modal overlay when you press on the upload new button! -->
-<div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="createNew" role="dialog">
-        <div class="modal-dialog modal-sl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="img/avatar_tmp.png" class="avatar">
-                </div>
-                <div class="modal-body">
-                    <div class="loginmodal-container">
-                        <form enctype="multipart/form-data" action="presentation_uploaded.php" method="post" id="uploadform">
-                            <label for="name">Presentation title:</label>
-                            <input type="text" name="name" required><br>
-                            <div class="form-group"><br/>
-                                <label for="comment">Presentation description:</label>
-                                <textarea class="form-control" rows="5" name="description" required></textarea>
-                            </div>
-                            <input type="file" class="login-modal-btn" name="file" required/>
-                            <input type="submit" class="login-modal-btn" value="Upload"/>
-                        </form>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
 </html>

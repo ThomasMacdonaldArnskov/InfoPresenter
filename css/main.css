@@ -242,5 +242,12 @@ hr {
     margin: 0 auto;
 }
 
+.smallMenu {
+    position: absolute;
+    right: 40px;
+    top: 30px;
+    text-align: center;
+    }
+
 
 

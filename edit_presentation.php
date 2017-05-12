@@ -43,8 +43,8 @@
 
     function updateSession()
     {
-        $table = $_SESSION['table'];
-        return $table;
+        //$table = $_SESSION['table'];
+        //return $table;
     }
 
     function getID($u, $tableName, $connection)
@@ -88,7 +88,7 @@
                 };
                 xmlhttp.open("GET", "scripts/updateValuesDB.php?q=" + str, true);
                 xmlhttp.send();
-            } <?php updateSession(); ?>
+            }
         }
     </script>
 </head>

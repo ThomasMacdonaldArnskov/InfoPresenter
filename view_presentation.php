@@ -56,7 +56,7 @@ $result->close();
     </style>
 </head>
 <body>
-<br /><br /><br />
+<br /><br /><br /><br /><br />
 <div class="container-fluid bg-3 text-center">
     <div class="row">
         <div class="col-sm-2"></div>

@@ -17,27 +17,36 @@
     }
     ?>
 
+    <script>
+        function validityVerifier(str) {
+            if (str == "") {
+                document.getElementById("txtHint").innerHTML = "";
+                return;
+            } else {
+                if (window.XMLHttpRequest) {
+                    // code for IE7+, Firefox, Chrome, Opera, Safari
+                    xmlhttp = new XMLHttpRequest();
+                } else {
+                    // code for IE6, IE5
+                    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlhttp.onreadystatechange = function () {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("txtHint").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "scripts/checkName.php?q=" + str, true);
+                xmlhttp.send();
+            }
+        }
+    </script>
 </head>
 <body>
 
 <!-- Spacing -->
 
-<br/><br/><br/><br/><br/><br/>
-<h1 class="text-center">Upload a new Presentation</h1>
-<!-- The upload new presentation button -->
-<br />
-<div class="row">
-    <div class="col-sm-5"></div>
-    <div class="col-sm-2">
-        <button class="btn-block btn btn-success uploadpresentation" data-toggle="modal" data-target="#createNew">+ New presentation +</button>
-    </div>
-    <div class="col-sm-5"></div>
-</div>
+<br/><br/><br/>
 
-<!-- Spacing -->
-<br/>
-
-<!-- Headline -->
 <div class="row">
     <div class="col-sm-2">
         <p>&nbsp;</p>
@@ -45,8 +54,10 @@
     </div>
     <div class="col-sm-8">
         <br/>
-        <h3 class="headline">Previously uploaded presentations</h3>
-        <hr>
+        <h1 class="text-center">Upload a new presentation</h1><br /><br />
+        <div class="text-center">
+            <i class="glyphicon glyphicon-upload" style="font-size: 200%; color: #0D3349;"></i>
+        </div>
     </div>
     <div class="col-sm-2">
         <p>&nbsp;</p>
@@ -55,155 +66,36 @@
 </div>
 
 <!-- Spacing -->
-<br /><br />
-<?php
+<br/>
 
-//Connect to the database
-require_once('includes/connection.php');
-$db_host = getDbHost();
-$db_password = getDbPassword();
-$db_username = getDbUser();
-$db_dbname = getDbDatabase();
-
-//Get which user it is that is logged in and store the information
-$username = $_SESSION['username'];
-
-$conn = new mysqli($db_host, $db_username, $db_password, $db_dbname);
-
-//Select the presentations that is connected to the current username
-$sql = "SELECT * FROM user_presentations_table WHERE user = '$username'";
-$result = $conn->query($sql);
-$num = 0;
-
-//Run through the entire fetched array
-while ($row = $result->fetch_assoc()) {
-    //When starting a new row, create a div and add the left spacing
-    if ($num % 4 == 0) {
-        echo '<div class="row">
-        <div class="col-sm-2">
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-    </div>';
-    }
-    //Add background color for the 1st and 3rd column
-    if ($num % 4 == 0 || $num % 4 == 2) {
-        echo '<div class="col-sm-2 yourpresentations">
-        <p>&nbsp;</p>
-        <h3>';
-
-        //Write the name of the presentation name fetched from the DB
-        echo $row["presentation_name"];
-        echo '</h3><p>';
-
-        //And the description
-        echo $row["description"];
-
-        //Lastly, the link
-        echo '</p>
-        <p>&nbsp;</p>
-        <form action ="view_presentation.php" method="post">
-        <input type="hidden" name="table_id" value="';
-        echo $row["ID"];
-        echo '">
-        <input type="submit" class="btn-block btn btn-success uploadpresentation" name ="submit" value="View">
-        </form>
-        <!--<p><a href=\"#\" data-toggle="modal" data-target="#createNew">View presentation</a></p>-->
-        <p>&nbsp;</p>
-    </div>';
-    } //Remove background color for the 2nd and 4th column
-    else if ($num % 4 == 1 || $num % 4 == 3) {
-        echo '<div class="col-sm-2 yourpresentations-inv">
-        <p>&nbsp;</p>
-        <h3>';
-        echo $row["presentation_name"];
-        echo '</h3><p>';
-        echo $row["description"];
-        //Lastly, the link
-        echo '</p>
-        <p>&nbsp;</p>
-        <form action ="view_presentation.php" method="post">
-        <input type="hidden" name="table_id" value="';
-        echo $row["ID"];
-        echo '">
-        <input type="submit" class="btn-block btn btn-success uploadpresentation" name ="submit" value="View">
-        </form>
-        <!--<p><a href=\"#\" data-toggle="modal" data-target="#createNew">View presentation</a></p>-->
-        <p>&nbsp;</p>
-    </div>';
-    }
-    $num++;
-
-    //When hitting the forth column, add the right spacing
-    if ($num % 4 == 0) {
-        echo '<div class="col-sm-2">
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-    </div>
-</div><br />';
-    }
-}
-
-//If conditions if there are not 4 entries in a row
-if ($num % 4 == 1) {
-    echo '<div class="col-sm-8">
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-    </div>
-</div><br />';
-} else if ($num % 4 == 2) {
-    echo '<div class="col-sm-6">
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-    </div>
-</div><br />';
-} else if ($num % 4 == 3) {
-    echo '<div class="col-sm-4">
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-    </div>
-</div><br />';
-}
-$result->close();
-$conn->close();
-?>
-
-<!-- Bottom spacing --->
-<br/><br/><br/>
-
-<!-- Bottom contact bar -->
-<?php
-include ("includes/footer.php");
-?>
-
-
-<!-- The modal overlay when you press on the upload new button! -->
 <div class="container">
-    <!-- Modal -->
-    <div class="modal fade" id="createNew" role="dialog">
-        <div class="modal-dialog modal-sl">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <img src="img/avatar_tmp.png" class="avatar">
-                </div>
-                <div class="modal-body">
-                    <div class="loginmodal-container">
-                        <form enctype="multipart/form-data" action="presentation_uploaded.php" method="post" id="uploadform">
-                            <label for="name">Presentation title:</label>
-                            <input type="text" name="name" required><br>
-                            <div class="form-group"><br/>
-                                <label for="comment">Presentation description:</label>
-                                <textarea class="form-control" rows="5" name="description" required></textarea>
-                            </div>
-                            <input type="file" class="login-modal-btn" name="file" required/>
-                            <input type="submit" class="login-modal-btn" value="Upload"/>
-                        </form>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <form enctype="multipart/form-data" action="presentation_uploaded.php" method="post" id="uploadform">
+                <label for="name">Presentation title:</label>
+                <input type="text"
+                       class="form-control"
+                       name="name"
+                       onchange="validityVerifier(this.value)"
+                       required><br>
+                <label for="description">Description</label>
+                    <textarea class="form-control" rows="5" name="description" required></textarea><br/>
 
-                    </div>
-                </div>
-            </div>
+                <input type="file" class="btn-block btn-file uploadpresentation" name="file" required/>
+                <br />
+                <input type="submit" class="btn-block btn btn-success uploadpresentation" value="Upload"/>
+            </form>
+            <br />
+        </div>
+        <div class="col-sm-4 text-left"><br /><div id="txtHint"><b>&nbsp</b></div>
         </div>
     </div>
 </div>
+<br /><br />
+
+<?php
+include("includes/footer.php");
+?>
 </body>
 </html>

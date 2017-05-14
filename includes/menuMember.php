@@ -17,7 +17,7 @@
                 <li><a href="view_presentation_overview.php">View</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="member_page.php"><?php $username = $_SESSION['username']; echo ($username);?></a></li>
+                <li><a href="#"><?php $username = $_SESSION['username']; echo ($username);?></a></li>
                 <li><a href="logout.php"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
             </ul>
         </div>

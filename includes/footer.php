@@ -1,4 +1,4 @@
 <!-- Bottom contact bar -->
-<div class="sitewrapper contact-bottom-bar">
-    <p class="bottom-bar-text">Contact info</p>
+<div class="site-wrapper contact-bottom-bar">
+    <p class="bottom-bar-text">InfoPresenter - the easy way to present your data</p>
 </div>

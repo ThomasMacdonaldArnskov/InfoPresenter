@@ -241,6 +241,16 @@ while ($row = $assocArray->fetch_assoc()) {
     echo ' onchange="updateDB(this.value.concat(this.name))"">
                         <option value="-1" selected>Choose icon type</option>
                         <option value="0">Magnifying glass</option>
+                        <option value="1">Music Node</option>
+                        <option value="2">Headphones</option>
+                        <option value="3">Drop of water</option>
+                        <option value="4">Reticle</option>
+                        <option value="5">Leaf</option>
+                        <option value="6">Fire</option>
+                        <option value="7">Plane</option>
+                        <option value="8">Eye</option>
+
+                        
                     </select></div>
                 <div class="col-sm-2"></div>
             </div>

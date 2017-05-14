@@ -4,10 +4,12 @@
 <html>
 <head>
 
+
     <!-- Include the headers and scripts-->
     <?php
     include('includes/header.php');
     include('includes/login_script.php');
+
 
     //If a user is logged in he see's the corresponding navigational menu, otherwise the regular
     if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
@@ -55,8 +57,12 @@
                 }
             });
     </script>
+
+
+
 </head>
 <body>
+
 
 <!-- Index site "intro" splash page -->
 <div class="site-wrapper intro-splash" id="top">
@@ -73,8 +79,8 @@
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
     <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/>
+    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+    <br/><br/>
 </div>
     <br/><br/><br/><br/><br/>
 
@@ -127,7 +133,7 @@
 
     </div>
 </div>
-<br/><br/><br/><br/><br/><br/><br/><br/>
+<br/><br/><br/><br/><br/><br/><br/><br/><br /><br /><br /><br /><br />
 <div id="about"></div>
 <div class="row">
     <div class="col-sm-5"></div>

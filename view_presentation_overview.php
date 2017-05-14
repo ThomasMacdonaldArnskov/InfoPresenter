@@ -22,10 +22,26 @@
 
 <!-- Spacing -->
 <br/><br/><br/><br/><br/><br/>
-
-<h1 class="text-center">View your presentations</h1>
+<div class="row">
+    <div class="col-sm-2">
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
+    <div class="col-sm-8">
+        <br/>
+        <h1 class="text-center">View your presentations</h1><br /><br />
+        <div class="text-center">
+        <i class="glyphicon glyphicon-eye-open" style="font-size: 200%; color: #0D3349;"></i>
+        </div>
+    </div>
+    <div class="col-sm-2">
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+    </div>
+</div>
+<br />
 <!-- Spacing -->
-<br/><br/><br/>
+<br/>
 
 <!-- Headline -->
 <div class="row">
@@ -43,7 +59,6 @@
         <p>&nbsp;</p>
     </div>
 </div>
-
 <!-- Spacing -->
 <br/><br/>
 
@@ -159,7 +174,8 @@ $conn->close();
 ?>
 
 <!-- Bottom spacing --->
-<br/><br/><br/>
+<br />
+
 
 <!-- Bottom contact bar -->
 <?php

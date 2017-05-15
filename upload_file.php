@@ -40,8 +40,29 @@
             }
         }
     </script>
+
+    <script>
+        $("#upload").click(function(e){
+            e.preventDefault();
+            //show loading gif
+            $(this).closest('form').submit();
+        });
+    </script>
+
+    <script>
+        function show (toBlock){
+            setDisplay(toBlock, 'block');
+        }
+        function hide (toNone) {
+            setDisplay(toNone, 'none');
+        }
+        function setDisplay (target, str) {
+            document.getElementById(target).style.display = str;
+        }
+    </script>
 </head>
 <body>
+<div id="fader"></div>
 
 <!-- Spacing -->
 
@@ -75,16 +96,17 @@
             <form enctype="multipart/form-data" action="presentation_uploaded.php" method="post" id="uploadform">
                 <label for="name">Presentation title:</label>
                 <input type="text"
+                       id="prestitle"
                        class="form-control"
                        name="name"
                        onchange="validityVerifier(this.value)"
-                       required><br>
+                       value="Title"><br>
                 <label for="description">Description</label>
-                    <textarea class="form-control" rows="5" name="description" required></textarea><br/>
+                    <textarea id="presdescrip" class="form-control" rows="5" name="description">Description</textarea><br/>
 
-                <input type="file" class="btn-block btn-file uploadpresentation" name="file" required/>
+                <input type="file" id="dataset" class="btn-block btn-file uploadpresentation" name="file"/>
                 <br />
-                <input type="submit" class="btn-block btn btn-success uploadpresentation" value="Upload"/>
+                <input type="submit" id="upload" class="btn-block btn btn-success uploadpresentation" id="loaderhide" onclick="show('loadanim'); hide('loaderhide')" value="Upload"/>
             </form>
             <br />
         </div>
@@ -97,5 +119,9 @@
 <?php
 include("includes/footer.php");
 ?>
+
+<div id="loadanim" style="display:none;"><div class="overlay"><div class="loader"></div></div></div>
+
+
 </body>
 </html>
